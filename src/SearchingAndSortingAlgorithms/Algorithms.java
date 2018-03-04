@@ -1,7 +1,6 @@
 package SearchingAndSortingAlgorithms;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Algorithms {
@@ -57,27 +56,99 @@ public class Algorithms {
 
 	public static ArrayList<Double> sortScores(List<Double> scores) {
 		ArrayList<Double> alist = new ArrayList<Double>();
-		boolean swap = false;
+		boolean swap = true;
 		double holder = 0;
 		for (double d : scores) {
 			alist.add(d);
 		}
-		for (int i = 1; i < alist.size(); i++) {
-			if (alist.get(i - 1) > alist.get(i)) {
-				holder = alist.get(i - 1);
-				alist.set(i - 1, alist.get(i));
-				alist.set(i, holder);
-				swap = true;
+		while (swap) {
+			swap = false;
+			for (int i = 1; i < alist.size(); i++) {
+				if (alist.get(i - 1) > alist.get(i)) {
+					holder = alist.get(i - 1);
+					alist.set(i - 1, alist.get(i));
+					alist.set(i, holder);
+					swap = true;
+				}
 			}
 		}
-		List<Double> newList = Arrays.asList(new Double[alist.size()]);
-		for (int i = 0; i < alist.size(); i++) {
-			newList.add(i, alist.get(i));
-		}
-		if (swap == true) {
-			sortScores(newList);
-		}
+
 		return alist;
+	}
+
+	public static List<String> sortDNA(List<String> list) {
+		String holder = "";
+		boolean swap = true;
+		while (swap) {
+			swap = false;
+			for (int i = 1; i < list.size(); i++) {
+				if (list.get(i - 1).length() > list.get(i).length()) {
+					holder = list.get(i - 1);
+					list.set(i - 1, list.get(i));
+					list.set(i, holder);
+					swap = true;
+				}
+			}
+		}
+		return list;
+	}
+
+	public static List<String> sortWords(List<String> words) {
+		String holder = "";
+		boolean swap = true;
+		while (swap) {
+			swap = false;
+			for (int i = 1; i < words.size(); i++) {
+				if (words.get(i - 1).charAt(0) > words.get(i).charAt(0)) {
+					holder = words.get(i - 1);
+					words.set(i - 1, words.get(i));
+					words.set(i, holder);
+					swap = true;
+				}
+			}
+		}
+
+		int track = 0;
+		boolean swap2 = true;
+		while (swap2) {
+			swap2 = false;
+			for (int i = 1; i < words.size(); i++) {
+				if (words.get(i - 1).charAt(0) == words.get(i).charAt(0)) {
+					if (words.get(i - 1).charAt(1) > words.get(i).charAt(1)) {
+						holder = words.get(i - 1);
+						words.set(i - 1, words.get(i));
+						words.set(i, holder);
+						swap2 = true;
+					}
+				}
+			}
+			track++;
+			if (track == words.size()) {
+				swap2 = false;
+			}
+		}
+
+		int track2 = 0;
+		boolean swap3 = true;
+		while (swap3) {
+			swap3 = false;
+			for (int i = 1; i < words.size(); i++) {
+				if (words.get(i - 1).charAt(1) > words.get(i).charAt(1)) {
+					if (words.get(i - 1).charAt(2) > words.get(i).charAt(2)) {
+						holder = words.get(i - 1);
+						words.set(i - 1, words.get(i));
+						words.set(i, holder);
+						swap3 = true;
+					}
+				}
+			}
+			track2++;
+			if (track2 == words.size()) {
+				swap3 = false;
+			}
+		}
+
+		return words;
 	}
 
 }
